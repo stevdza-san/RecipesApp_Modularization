@@ -34,6 +34,7 @@ kotlin {
             implementation(compose.components.resources)
 
             implementation(libs.coil3)
+            implementation(libs.koin.core)
         }
     }
 }

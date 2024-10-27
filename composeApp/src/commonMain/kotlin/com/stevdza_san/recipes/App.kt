@@ -9,25 +9,28 @@ import com.stevdza_san.navigation.RootNavigationGraph
 import com.stevdza_san.recipes.presentation.screen.root.RootScreen
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.koin.compose.KoinContext
 
 @Composable
 @Preview
 fun App() {
     MaterialTheme {
-        val scope = rememberCoroutineScope()
-        val drawerState = rememberDrawerState(DrawerValue.Closed)
-        RootNavigationGraph(
-            root = { navigateToSettings ->
-                RootScreen(
-                    drawerState = drawerState,
-                    navigateToSettings = {
-                        navigateToSettings()
-                        scope.launch {
-                            drawerState.close()
+        KoinContext {
+            val scope = rememberCoroutineScope()
+            val drawerState = rememberDrawerState(DrawerValue.Closed)
+            RootNavigationGraph(
+                root = { navigateToSettings ->
+                    RootScreen(
+                        drawerState = drawerState,
+                        navigateToSettings = {
+                            navigateToSettings()
+                            scope.launch {
+                                drawerState.close()
+                            }
                         }
-                    }
-                )
-            }
-        )
+                    )
+                }
+            )
+        }
     }
 }

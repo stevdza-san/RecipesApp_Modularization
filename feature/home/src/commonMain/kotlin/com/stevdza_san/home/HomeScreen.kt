@@ -9,11 +9,16 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.stevdza_san.shared.component.RecipeView
-import com.stevdza_san.shared.domain.foodRecipes
+import com.stevdza_san.shared.domain.RecipesRepository
+import org.koin.compose.koinInject
 
 @Composable
 fun HomeScreen(navigateToDetails: (Int) -> Unit) {
+    val repository = koinInject<RecipesRepository>()
+    val viewModel = viewModel { HomeViewModel(repository = repository) }
+    val allRecipes = viewModel.getAllRecipes()
     Scaffold {
         LazyVerticalStaggeredGrid(
             modifier = Modifier
@@ -23,7 +28,7 @@ fun HomeScreen(navigateToDetails: (Int) -> Unit) {
             verticalItemSpacing = 12.dp
         ) {
             items(
-                items = foodRecipes,
+                items = allRecipes,
                 key = { it.id }
             ) {
                 RecipeView(

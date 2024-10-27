@@ -14,7 +14,20 @@ data class Recipe(
     val isFavorite: Boolean
 )
 
-val foodRecipes = mutableStateListOf(
+class RecipesRepository {
+    fun getAllRecipes() = foodRecipes
+    fun getSelectedRecipe(id: Int) = foodRecipes.first { it.id == id }
+    fun getSavedRecipes() = foodRecipes.filter { it.isFavorite }
+    fun toggleFavorite(recipeId: Int) {
+        val index = foodRecipes.indexOfFirst { it.id == recipeId }
+        if (index != -1) {
+            val recipe = foodRecipes[index]
+            foodRecipes[index] = recipe.copy(isFavorite = !recipe.isFavorite)
+        }
+    }
+}
+
+private val foodRecipes = mutableStateListOf(
     Recipe(
         id = 0,
         image = "https://www.allrecipes.com/thmb/Vg2cRidr2zcYhWGvPD8M18xM_WY=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/11973-spaghetti-carbonara-ii-DDMFS-4x3-6edea51e421e4457ac0c3269f3be5157.jpg",

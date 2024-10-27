@@ -13,12 +13,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.stevdza_san.shared.component.RecipeView
-import com.stevdza_san.shared.domain.foodRecipes
+import com.stevdza_san.shared.domain.RecipesRepository
+import org.koin.compose.koinInject
 
 @Composable
 fun SavedScreen(navigateToDetails: (Int) -> Unit) {
-    val favoriteRecipes = foodRecipes.filter { it.isFavorite }
+//    val favoriteRecipes = foodRecipes.filter { it.isFavorite }
+    val repository = koinInject<RecipesRepository>()
+    val viewModel = viewModel { SavedViewModel(repository) }
+    val favoriteRecipes = viewModel.getSavedRecipes()
+
     Scaffold {
         if (favoriteRecipes.isNotEmpty()) {
             LazyVerticalStaggeredGrid(

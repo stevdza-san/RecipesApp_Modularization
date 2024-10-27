@@ -23,7 +23,6 @@ import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -35,11 +34,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.coil3.CoilImage
 import com.stevdza_san.details.component.ExpandableCard
 import com.stevdza_san.details.domain.RecipeCard
-import com.stevdza_san.shared.domain.foodRecipes
+import com.stevdza_san.shared.domain.RecipesRepository
+import org.koin.compose.koinInject
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -47,12 +48,14 @@ fun DetailsScreen(
     id: Int,
     navigateBack: () -> Unit
 ) {
-    val recipes = foodRecipes
-    val selectedRecipe by remember {
-        derivedStateOf {
-            recipes.first { it.id == id }
-        }
-    }
+    val repository = koinInject<RecipesRepository>()
+    val viewModel = viewModel { DetailsViewModel(repository) }
+    val selectedRecipe = viewModel.getSelectedRecipe(id)
+//    val selectedRecipe by remember {
+//        derivedStateOf {
+//            recipes.first { it.id == id }
+//        }
+//    }
     var expandedRecipeCard: RecipeCard? by remember {
         mutableStateOf(null)
     }
@@ -72,7 +75,8 @@ fun DetailsScreen(
                 actions = {
                     IconButton(
                         onClick = {
-                            toggleFavorite(selectedRecipe.id)
+//                            toggleFavorite(selectedRecipe.id)
+                            viewModel.toggleFavorites(id)
                         }
                     ) {
                         Icon(
@@ -154,10 +158,10 @@ fun DetailsScreen(
     }
 }
 
-fun toggleFavorite(recipeId: Int) {
-    val index = foodRecipes.indexOfFirst { it.id == recipeId }
-    if (index != -1) {
-        val recipe = foodRecipes[index]
-        foodRecipes[index] = recipe.copy(isFavorite = !recipe.isFavorite)
-    }
-}
+//fun toggleFavorite(recipeId: Int) {
+//    val index = foodRecipes.indexOfFirst { it.id == recipeId }
+//    if (index != -1) {
+//        val recipe = foodRecipes[index]
+//        foodRecipes[index] = recipe.copy(isFavorite = !recipe.isFavorite)
+//    }
+//}

@@ -45,7 +45,10 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtime.compose)
 
             implementation(libs.compose.navigation)
+            implementation(libs.koin.core)
+            implementation(libs.koin.compose)
             implementation(project(path = ":navigation"))
+            implementation(project(path = ":shared"))
         }
     }
 }
