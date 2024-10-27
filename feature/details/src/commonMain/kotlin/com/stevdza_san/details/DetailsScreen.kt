@@ -48,8 +48,9 @@ fun DetailsScreen(
     id: Int,
     navigateBack: () -> Unit
 ) {
-    val repository = koinInject<RecipesRepository>()
-    val viewModel = viewModel { DetailsViewModel(repository) }
+//    val repository = koinInject<RecipesRepository>()
+//    val viewModel = viewModel { DetailsViewModel(repository) }
+    val viewModel = koinInject<DetailsViewModel>()
     val selectedRecipe = viewModel.getSelectedRecipe(id)
 //    val selectedRecipe by remember {
 //        derivedStateOf {

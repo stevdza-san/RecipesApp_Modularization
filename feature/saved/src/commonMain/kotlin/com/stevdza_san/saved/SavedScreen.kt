@@ -17,12 +17,14 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.stevdza_san.shared.component.RecipeView
 import com.stevdza_san.shared.domain.RecipesRepository
 import org.koin.compose.koinInject
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun SavedScreen(navigateToDetails: (Int) -> Unit) {
 //    val favoriteRecipes = foodRecipes.filter { it.isFavorite }
-    val repository = koinInject<RecipesRepository>()
-    val viewModel = viewModel { SavedViewModel(repository) }
+//    val repository = koinInject<RecipesRepository>()
+//    val viewModel = viewModel { SavedViewModel(repository) }
+    val viewModel = koinViewModel<SavedViewModel>()
     val favoriteRecipes = viewModel.getSavedRecipes()
 
     Scaffold {
