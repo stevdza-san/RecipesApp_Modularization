@@ -20,7 +20,7 @@ kotlin {
         iosSimulatorArm64()
     ).forEach {
         it.binaries.framework {
-            baseName = "settings"
+            baseName = "joke"
             isStatic = true
         }
     }
@@ -37,7 +37,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.stevdza_san.settings"
+    namespace = "com.stevdza_san.joke"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()

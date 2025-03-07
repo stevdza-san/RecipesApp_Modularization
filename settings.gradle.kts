@@ -28,13 +28,13 @@ dependencyResolutionManagement {
     }
 }
 
+include(":feature:root")
 include(":composeApp")
 include(":navigation")
-include(":feature")
 include(":feature:settings")
 include(":shared")
-include(":feature:joke")
-include(":feature:home")
-include(":feature:details")
-include(":feature:saved")
+include(":feature:root:joke")
+include(":feature:root:home")
+include(":feature:root:details")
+include(":feature:root:saved")
 include(":di")

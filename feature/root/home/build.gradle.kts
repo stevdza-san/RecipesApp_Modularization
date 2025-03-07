@@ -20,7 +20,7 @@ kotlin {
         iosSimulatorArm64()
     ).forEach {
         it.binaries.framework {
-            baseName = "settings"
+            baseName = "home"
             isStatic = true
         }
     }
@@ -32,12 +32,17 @@ kotlin {
             implementation(compose.material3)
             implementation(compose.ui)
             implementation(compose.components.resources)
+
+            implementation(libs.koin.core)
+            implementation(libs.koin.compose)
+            implementation(libs.koin.compose.viewmodel)
+            implementation(project(path = ":shared"))
         }
     }
 }
 
 android {
-    namespace = "com.stevdza_san.settings"
+    namespace = "com.stevdza_san.home"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()

@@ -29,9 +29,9 @@ kotlin {
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
 
-            implementation(project(path = ":feature:home"))
-            implementation(project(path = ":feature:details"))
-            implementation(project(path = ":feature:saved"))
+            implementation(project(path = ":feature:root:home"))
+            implementation(project(path = ":feature:root:details"))
+            implementation(project(path = ":feature:root:saved"))
             implementation(project(path = ":shared"))
         }
     }
@@ -39,9 +39,9 @@ kotlin {
 
 android {
     namespace = "com.stevdza_san.di"
-    compileSdk = 34
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig {
-        minSdk = 24
+        minSdk = libs.versions.android.minSdk.get().toInt()
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11

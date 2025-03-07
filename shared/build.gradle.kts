@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.serialization)
 }
 
 kotlin {
@@ -35,15 +36,17 @@ kotlin {
 
             implementation(libs.coil3)
             implementation(libs.koin.core)
+
+            implementation(libs.kotlinx.serialization)
         }
     }
 }
 
 android {
     namespace = "com.stevdza_san.shared"
-    compileSdk = 34
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig {
-        minSdk = 24
+        minSdk = libs.versions.android.minSdk.get().toInt()
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11

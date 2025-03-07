@@ -36,22 +36,19 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtime.compose)
 
             implementation(libs.compose.navigation)
-            implementation(libs.kotlinx.serialization)
 
+            implementation(project(path = ":shared"))
             implementation(project(path = ":feature:settings"))
-            implementation(project(path = ":feature:joke"))
-            implementation(project(path = ":feature:home"))
-            implementation(project(path = ":feature:details"))
-            implementation(project(path = ":feature:saved"))
+            implementation(project(path = ":feature:root"))
         }
     }
 }
 
 android {
     namespace = "com.stevdza_san.navigation"
-    compileSdk = 34
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig {
-        minSdk = 24
+        minSdk = libs.versions.android.minSdk.get().toInt()
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
